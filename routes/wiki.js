@@ -63,6 +63,7 @@ router.get('/:urlTitle', function (req,res,next){
     if(foundPage === null){
       res.status(404).send();
     } else {
+      console.log(foundPage.tags);
       var tags = foundPage.tags.join(" ");
       res.render('wikipage', {
         page: foundPage,
