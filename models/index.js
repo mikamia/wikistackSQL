@@ -41,8 +41,22 @@ var Page = db.define('page', {
   },
   {
     getterMethods: {
-    route: function () {return '/wiki/' + this.urlTitle; }
-  }
+      route: function () {return '/wiki/' + this.urlTitle; }
+    },
+    classMethods: {
+      findByTag: function(arrayOfTags){
+        Page.find({
+          // $overlap matches a set of possibilities
+          where : {
+            tags: {
+              $overlap: arrayOfTags
+            }
+          }
+        });
+      }
+    }
+
+
 });
 
 Page.hook('beforeValidate', function (self) {

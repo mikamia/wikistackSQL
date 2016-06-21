@@ -18,6 +18,7 @@ router.post('/', function (req, res, next) {
   var content = req.body.content;
   var name = req.body.name;
   var email = req.body.email;
+  var tags = req.body.tags.split(" ");
 
   User.findOrCreate({
     where: {
@@ -30,7 +31,8 @@ router.post('/', function (req, res, next) {
 
     var page = Page.build({
       title: title,
-      content: content
+      content: content,
+      tags: tags
     });
 
     return page.save().then(function (page) {
@@ -59,15 +61,15 @@ router.get('/:urlTitle', function (req,res,next){
     ]
   })
   .then( function (foundPage){
-    //console.log(foundPage);
+    console.log(foundPage);
     if(foundPage === null){
       res.status(404).send();
     } else {
-      console.log(foundPage.tags);
-      var tags = foundPage.tags.join(" ");
+      //console.log("TAGS",foundPage.tags);
+      //var tags = foundPage.tags.join(" ");
       res.render('wikipage', {
         page: foundPage,
-        tags: tags
+        //tags: tags
       });
     }
   }).catch(next);
