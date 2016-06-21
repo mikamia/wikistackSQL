@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var models = require('./models');
 var wikiRouter = require('./routes/wiki');
+var userRouter = require('./routes/users');
 
 // logging middleware
 app.use(morgan('dev'));
@@ -42,3 +43,4 @@ models.User.sync({})
 .catch(console.error);
 
 app.use('/wiki', wikiRouter);
+app.use('/users', userRouter);
