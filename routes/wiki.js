@@ -18,8 +18,8 @@ router.post('/', function (req, res, next) {
     title: title,
     content: content
   });
-  page.save().then(function () {
-    res.redirect('/');
+  page.save().then(function (page) {
+    res.json(page);
   });
 });
 
