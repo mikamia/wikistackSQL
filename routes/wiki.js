@@ -63,8 +63,10 @@ router.get('/:urlTitle', function (req,res,next){
     if(foundPage === null){
       res.status(404).send();
     } else {
+      var tags = foundPage.tags.join(" ");
       res.render('wikipage', {
-        page: foundPage
+        page: foundPage,
+        tags: tags
       });
     }
   }).catch(next);
