@@ -6,7 +6,7 @@ var swig = require('swig');
 var bodyParser = require('body-parser');
 var path = require('path');
 var models = require('./models');
-var router = require('./routes/wiki');
+var wikiRouter = require('./routes/wiki');
 
 // logging middleware
 app.use(morgan('dev'));
@@ -41,6 +41,6 @@ models.User.sync({})
 })
 .catch(console.error);
 
-app.use('/', router);
+app.use('/wiki', wikiRouter);
 
 
