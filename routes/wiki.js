@@ -20,7 +20,7 @@ router.post('/', function (req, res, next) {
   });
 
   page.save().then(function (page) {
-    res.json(page);
+    res.redirect(page.route);
   });
 });
 
