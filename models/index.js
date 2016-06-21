@@ -4,6 +4,16 @@ var db = new Sequelize('postgres://localhost:5432/wikistack', {
   logging:false
 });
 
+function generateUrlTitle (title) {
+  if (title) {
+    // Removes all non-alphanumeric characters from title
+    // And make whitespace underscore
+    return title.replace(/\s+/g, '_').replace(/\W/g, '');
+  } else {
+    // Generates random 5 letter string
+    return Math.random().toString(36).substring(2, 7);
+  }
+}
 
 var Page = db.define('page', {
     title: {
@@ -30,6 +40,10 @@ var Page = db.define('page', {
     getterMethods: {
     route: function () {return '/wiki/' + this.urlTitle; }
   }
+});
+
+Page.hook('beforeValidate', function (self) {
+  self.urlTitle = generateUrlTitle(self.title);
 });
 
 var User = db.define('user', {
