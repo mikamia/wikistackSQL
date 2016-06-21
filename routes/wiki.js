@@ -8,7 +8,7 @@ var User = models.User;
 
 router.get('/', function (req, res, next) {
   Page.findAll()
-    .then(function(allPages){
+    .then(function (allPages){
       res.render('index', {allPages: allPages});
       console.log(allPages);
     });
@@ -19,35 +19,51 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   var title = req.body.title;
   var content = req.body.content;
+  var name = req.body.name;
+  var email = req.body.email;
 
-  var page = Page.build({
-    title: title,
-    content: content
-  });
+  User.findOrCreate({
+    where: {
+      name: name,
+      email: email
+    }
+  })
+  .then(function (vals) {
+    var user = vals[0];
 
-  page.save().then(function (page) {
+    var page = Page.build({
+      title: title,
+      content: content
+    });
+
+    return page.save().then(function (page) {
+      return page.setAuthor(user);
+    });
+
+  })
+  .then(function (page) {
     res.redirect(page.route);
-  });
+    })
+  .catch(next);
 });
 
 router.get('/add', function (req, res, next) {
   res.render('addpage');
 });
 
-router.get('/:urlTitle', function(req,res,next){
+router.get('/:urlTitle', function (req,res,next){
 
   Page.findOne({
     where: {
       urlTitle: req.params.urlTitle
     }
   })
-  .then(function(foundPage){
+  .then(function (foundPage){
     res.render('wikipage', {
       page: foundPage
     });
   })
   .catch(next);
-  //res.send('hit dynamic route at ' + req.params.urlTitle);
-})
+});
 
 module.exports = router;
