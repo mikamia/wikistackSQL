@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/mikamia/wikistackSQL/issues"
   },
-  "homepage": "https://github.com/mikamia/wikistackSQL#readme"
+  "homepage": "https://github.com/mikamia/wikistackSQL#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "swig": "^1.4.2"
+  }
 }
