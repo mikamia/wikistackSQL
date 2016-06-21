@@ -39,7 +39,6 @@ router.get('/:urlTitle', function(req,res,next){
     res.render('wikipage', {
       page: foundPage
     });
-    res.json(foundPage);
   })
   .catch(next);
   //res.send('hit dynamic route at ' + req.params.urlTitle);
