@@ -6,6 +6,7 @@ var swig = require('swig');
 var bodyParser = require('body-parser');
 var path = require('path');
 var models = require('./models');
+var router = require('./routes/wiki');
 
 // logging middleware
 app.use(morgan('dev'));
@@ -28,9 +29,6 @@ app.engine('html', swig.renderFile);
 // turn of swig's caching
 swig.setDefaults({cache: false});
 
-app.get('/', function (req, res){
-  console.log('cool');
-});
 
 models.User.sync({})
 .then(function () {
@@ -42,5 +40,7 @@ models.User.sync({})
   });
 })
 .catch(console.error);
+
+app.use('/', router);
 
 
