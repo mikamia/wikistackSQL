@@ -53,14 +53,22 @@ router.get('/:urlTitle', function (req,res,next){
   Page.findOne({
     where: {
       urlTitle: req.params.urlTitle
+    },
+    include: [
+      {model: User, as: 'author'}
+    ]
+  })
+  .then( function (foundPage){
+    //console.log(foundPage);
+    if(foundPage === null){
+      res.status(404).send();
+    } else {
+      res.render('wikipage', {
+        page: foundPage
+      });
     }
-  })
-  .then(function (foundPage){
-    res.render('wikipage', {
-      page: foundPage
-    });
-  })
-  .catch(next);
+  }).catch(next);
+
 });
 
 module.exports = router;
