@@ -29,7 +29,20 @@ router.get('/add', function (req, res, next) {
 });
 
 router.get('/:urlTitle', function(req,res,next){
-  res.send('hit dynamic route at ' + req.params.urlTitle);
+
+  Page.findOne({
+    where: {
+      urlTitle: req.params.urlTitle
+    }
+  })
+  .then(function(foundPage){
+    res.render('wikipage', {
+      page: foundPage
+    });
+    res.json(foundPage);
+  })
+  .catch(next);
+  //res.send('hit dynamic route at ' + req.params.urlTitle);
 })
 
 module.exports = router;
