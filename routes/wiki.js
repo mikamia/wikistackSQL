@@ -7,7 +7,13 @@ var Page = models.Page;
 var User = models.User;
 
 router.get('/', function (req, res, next) {
-  res.redirect('/');
+  Page.findAll()
+    .then(function(allPages){
+      res.render('index', {allPages: allPages});
+      console.log(allPages);
+    });
+
+  //res.redirect('/');
 });
 
 router.post('/', function (req, res, next) {
