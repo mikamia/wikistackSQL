@@ -13,7 +13,6 @@ var Page = db.define('page', {
   urlTitle: {
     type: Sequelize.STRING,
     allowNull: false,
-    isUrl: true
   },
   content: {
     type: Sequelize.TEXT,
@@ -24,7 +23,7 @@ var Page = db.define('page', {
   },
   date: {
     type: Sequelize.DATE,
-    isDate: true
+    defaultValue: Sequelize.NOW
   }
 });
 
