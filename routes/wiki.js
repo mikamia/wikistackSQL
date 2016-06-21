@@ -19,12 +19,17 @@ router.post('/', function (req, res, next) {
     content: content
   });
   page.save().then(function () {
-    res.redirect('/');
+    //res.redirect('/');
+    res.json(page);
   });
 });
 
 router.get('/add', function (req, res, next) {
   res.render('addpage');
 });
+
+router.get('/:urlTitle', function(req,res,next){
+  res.send('hit dynamic route at ' + req.params.urlTitle);
+})
 
 module.exports = router;
