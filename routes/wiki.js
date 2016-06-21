@@ -10,10 +10,7 @@ router.get('/', function (req, res, next) {
   Page.findAll()
     .then(function (allPages){
       res.render('index', {allPages: allPages});
-      console.log(allPages);
     });
-
-  //res.redirect('/');
 });
 
 router.post('/', function (req, res, next) {
