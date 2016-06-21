@@ -32,7 +32,7 @@ swig.setDefaults({cache: false});
 
 models.User.sync({})
 .then(function () {
-    return models.Page.sync({force:true});
+    return models.Page.sync();
 })
 .then(function () {
   app.listen(3000, function () {
